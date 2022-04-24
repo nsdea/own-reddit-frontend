@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>RedditFrontend</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="favicon" href="/logo.png">
+    <link rel="icon" type="image/png" href="/logo.png"/>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <style>
+        .vote:hover {
+            opacity: 0.4;
+            transition: .5s;
+        }
+    </style>
+</head>
+    
+<body class="midnight">
+    <header class="transparent-2" style="--image: url('{{ sub.banner_img }}')">
+        <nav>
+            <a href="?sort=hot" class="{{ 'current' if sort == 'hot' else '' }}"><i class="bi bi-graph-up"></i> Hot</a>
+            <a href="?sort=top" class="{{ 'current' if sort == 'top' else '' }}"><i class="bi bi-star"></i> Top</a>
+            <a href="?sort=new" class="{{ 'current' if sort == 'new' else '' }}"><i class="bi bi-stars"></i> New</a>   
+        </nav>
+    
+        <h1>{{sub.type_char}}/{{ sub.name }}</h1>
+        <p>{{ sub.description }}</p>
+        <p><strong><i class="bi bi-people-fill"></i> {{ sub.subscribers }}</strong></p>
+        <!-- <a href="https://reddit.com/r/{{ sub.display_name }}"><button><i class="bi bi-arrow-up-right-circle"></i> Open in normal Reddit</button></a> -->
+    </header>
+    
+    <main>
+        <div class="posts">
+            {% for post in posts %}
+            <div class="post">
+                {% if post.url.startswith('https://i.') %}
+                <img src="{{ post.url }}" style="{{ 'filter: blur(20px);' if post.over_18 else '' }}">
+                {% else %}
+                <br>
+                {% endif %}
+
+                <div class="content">
+                    {% if post.subreddit %}
+                    <a href="/u/{{ post.author.name }}" class="plain">
+                        <mark><strong>{{ post.subreddit }}</strong></mark>
+                    {% else %}
+                    <a href="{{ post.url }}" class="plain">
+                    {% endif %}
+                        <img src="{{ post.author.icon_img }}" style="width: 20px; border: 100%;">&nbsp;<h5 style="display: inline;"><strong>u/{{ post.author.name }} ·</strong> {{ post.time }}</h5>
+                    </a>
+                    <h6 style="margin: 0; display: inline;">
+                        {% if post.link_flair_text %}
+                        <mark>{{ post.link_flair_text }}</mark>
+                        {% endif %}
+                        
+                        {% if post.is_original_content %}
+                        <mark>OC</mark>
+                        {% endif %}
+                        
+                        {% if post.over_18 %}
+                        <mark>NSFW</mark>
+                        {% endif %}
+                        
+                        {% if post.locked %}
+                        <mark>🔒</mark>
+                        {% endif %}
+
+                        {% if post.distinguished %}
+                        <mark>🏅</mark>
+                        {% endif %}
+                    </h6>
+                    
+                    <h4 onclick="window.location.href = '{{ post.url }}'">{{ post.title }}</h4>
+                    
+                    <p>{{ post.text | safe }}</p>
+                    <p style="font-size: 1.5rem;">
+                        <i class="bi bi-arrow-up vote" style="color: rgb(219, 72, 72);" onclick="window.location.href = '/upvote/{{ sub.display_name }}/{{ post.id }}'"></i>
+                        {{ post.score}}
+                        <i class="bi bi-arrow-down vote" style="color: rgb(20, 114, 207);" onclick="window.location.href = '/downvote/{{ sub.display_name }}/{{ post.id }}'"></i>&nbsp;&nbsp;
+                        <i class="bi bi-chat-left-text"></i>
+                        {{ post.num_comments }}
+                    </p>
+                </div>
+            </div>   
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        <p>by <a href="https://onlix.me">ONLIX</a></p>
+    </footer>
+</body>
+</html>

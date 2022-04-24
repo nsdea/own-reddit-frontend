@@ -1,0 +1,4 @@
+ID=put_app_id_here
+USER=put_username_here
+PASS=put_password_here
+SECRET=put_app_secret_here
