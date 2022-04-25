@@ -46,12 +46,12 @@
 
                 <div class="content">
                     {% if post.subreddit %}
-                    <a href="/u/{{ post.author.name }}" class="plain">
+                    <a href="https://reddit.com{{ post.url }}" class="plain">
                         <mark><strong>{{ post.subreddit }}</strong></mark>
                     {% else %}
-                    <a href="{{ post.url }}" class="plain">
+                    <a href="/u/{{ post.author.name }}" class="plain">
                     {% endif %}
-                        <img src="{{ post.author.icon_img }}" style="width: 20px; border: 100%;">&nbsp;<h5 style="display: inline;"><strong>u/{{ post.author.name }} ·</strong> {{ post.time }}</h5>
+                        <img src="{{ post.author.icon_img }}" style="width: 20px; border: 100%; position: relative; top: 5px;">&nbsp;<h5 style="display: inline;"><strong>u/{{ post.author.name }} ·</strong> {{ post.time }}</h5>
                     </a>
                     <h6 style="margin: 0; display: inline;">
                         {% if post.link_flair_text %}
