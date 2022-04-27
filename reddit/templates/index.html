@@ -29,7 +29,10 @@
         </nav>
     
         <h1>{{sub.type_char}}/{{ sub.name }}</h1>
-        <p>{{ sub.description }}</p>
+        <details>
+            <summary>Click here to show the community description.</summary>
+            <p>{{ sub.description | safe }}</p>
+        </details>
         <p><strong><i class="bi bi-people-fill"></i> {{ sub.subscribers }}</strong></p>
         <!-- <a href="https://reddit.com/r/{{ sub.display_name }}"><button><i class="bi bi-arrow-up-right-circle"></i> Open in normal Reddit</button></a> -->
     </header>

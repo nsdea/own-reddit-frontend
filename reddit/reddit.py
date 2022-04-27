@@ -23,6 +23,7 @@ def sub(name):
     setattr(data, 'subscribers', f'{data.subscribers:,}') # convert to comma-separated number
     setattr(data, 'name', data.display_name)
     setattr(data, 'type_char', 'r')
+    setattr(data, 'description', markdown.markdown(data.description))
     
     return data
 

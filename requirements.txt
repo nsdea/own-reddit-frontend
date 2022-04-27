@@ -1,3 +1,4 @@
 praw
+flask
 Markdown
 python-dotenv
