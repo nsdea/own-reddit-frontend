@@ -6,7 +6,7 @@ app = flask.Flask(__name__, static_url_path='/')
 
 @app.route('/')
 def index():
-    return flask.redirect('/r/all')
+    return flask.redirect('/r/tech')
 
 @app.route('/r/<name>')
 def r(name):
